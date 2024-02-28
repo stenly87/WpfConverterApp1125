@@ -1,0 +1,41 @@
+﻿<Window x:Class="WpfConverterApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfConverterApp"
+        xmlns:conv="clr-namespace:WpfConverterApp.Converter"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <conv:ConverterByteToBrush x:Key="converter1"/>
+        <conv:ConverterDiscount x:Key="converter2"/>
+        <conv:ConverterTovarToActualPrice x:Key="converter3"/>
+    </Window.Resources>
+    <StackPanel>
+        <Border BorderBrush="Black" 
+                Padding="10" Margin="5" 
+                BorderThickness="1" 
+                x:Name="border1"
+                DataContext="{Binding Tovar}"
+                Background="{Binding Discount, 
+                    Converter={StaticResource converter1}}"
+                >
+            <StackPanel >
+                <TextBlock Text="Наименование"/>
+                <TextBox Background="Transparent" Text="{Binding Title}"/>
+                <TextBlock Text="Цена"/>
+                <TextBox Background="Transparent" Text="{Binding Price}"/>
+                <TextBlock Text="Скидка"/>
+                <TextBox Background="Transparent"
+                         Text="{Binding Discount, Converter={StaticResource converter2}}"/>
+                <TextBlock Text="Цена со скидкой"/>
+                <TextBlock Background="Transparent" 
+                           Text="{Binding {},
+                    Converter={StaticResource converter3}}"/>
+
+            </StackPanel>
+        </Border>
+        <Button Content="Сделай что-нибудь" Click="Button_Click"/>
+    </StackPanel>
+</Window>
